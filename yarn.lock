@@ -1017,7 +1017,7 @@
     core-js-pure "^3.20.2"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.17.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.9.tgz#d19fbf802d01a8cb6cf053a64e472d42c434ba72"
   integrity sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg==
@@ -4456,6 +4456,13 @@ he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
+history@^5.2.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
+  integrity sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
+
 hoopy@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/hoopy/-/hoopy-0.1.4.tgz#609207d661100033a9a9402ad3dea677381c1b1d"
@@ -4928,6 +4935,33 @@ istanbul-reports@^3.1.3:
   dependencies:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
+
+italian-adjectives-dict@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/italian-adjectives-dict/-/italian-adjectives-dict-2.2.1.tgz#003b77d8cc56ce3b4fd26d8ac413c75303a31361"
+  integrity sha512-K29HRlE9kxYV24SVLhOSe2aBuqlVcgSspqnF8WweQ5gV5ltFKsEhNuMLcamWRB3fZRtxM2KocUoEPm02kw8oxw==
+
+italian-adjectives@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/italian-adjectives/-/italian-adjectives-4.2.1.tgz#61b35f6ec48e0c293228a9468ab3e9e182da2354"
+  integrity sha512-zatoZRM4VGCBxino5okiLr4HE396/ZpPzJD9XERDiIZi9nAdUS5wZNmNPyNMXa2FE/UR1NPV8yHLyBiufBcBYQ==
+  dependencies:
+    rosaenlg-commons "2.2.1"
+
+italian-determiners@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/italian-determiners/-/italian-determiners-4.2.1.tgz#a12751cfde0c7909a130bac9476e7cf2c24fba6b"
+  integrity sha512-MtZRvzCzyhWathp16fbPfbMfaONgHyf2rn0gwWPfnCm/LNxD56JuZNft741ey9zLFc38ki8JiHpEFjpKZQG+aQ==
+
+italian-verbs-dict@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/italian-verbs-dict/-/italian-verbs-dict-2.2.1.tgz#764443f19d55b73c99f93e3bde4934cca592bd55"
+  integrity sha512-tKKJSrW2nYm5y1rjxcixGiRxCLIpMxf0FVzwg6IDpf43CZYfmrQzDWJbOh802gOfEZfMxqJZm9SHEx9SI0n0fA==
+
+italian-verbs@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/italian-verbs/-/italian-verbs-4.2.1.tgz#0b268e87ab281c8a33d9e5973ab809d231c00807"
+  integrity sha512-+Tdkm+/IXu7kzb+4xyBgBjYz55InRo0HqGE25IboDUe306Nstb6qQG1tvdf6YE220mU6C4CDQEwwPTCHvg4i8g==
 
 jake@^10.6.1:
   version "10.8.4"
@@ -6957,6 +6991,21 @@ react-refresh@^0.11.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
+react-router-dom@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.3.0.tgz#a0216da813454e521905b5fa55e0e5176123f43d"
+  integrity sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==
+  dependencies:
+    history "^5.2.0"
+    react-router "6.3.0"
+
+react-router@6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.3.0.tgz#3970cc64b4cb4eae0c1ea5203a80334fdd175557"
+  integrity sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==
+  dependencies:
+    history "^5.2.0"
+
 react-scripts@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-5.0.0.tgz#6547a6d7f8b64364ef95273767466cc577cb4b60"
@@ -7243,6 +7292,11 @@ rollup@^2.43.1:
   integrity sha512-CRYsI5EuzLbXdxC6RnYhOuRdtz4bhejPMSWjsFLfVM/7w/85n2szZv6yExqUXsBdz5KT8eoubeyDUDjhLHEslA==
   optionalDependencies:
     fsevents "~2.3.2"
+
+rosaenlg-commons@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/rosaenlg-commons/-/rosaenlg-commons-2.2.1.tgz#c81b50310e1ecf005a6b2dbfcdb4a4fc44a0fbba"
+  integrity sha512-er2Q7VoigfOcRfVmDRrj0UtBGR05rf+3jOxw8RXi77mShekjIjZnfj+AnZzXdM92q2zFX0eF2JI0c9erKdLsCg==
 
 run-parallel@^1.1.9:
   version "1.2.0"

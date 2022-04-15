@@ -1,11 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import RoutesComponent from './routes/routes';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="bg-primary-dark text-white flex flex-col">
+      {/*       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -17,7 +18,8 @@ function App() {
           rel="noopener noreferrer"
         >
         </a>
-      </header>
+      </header> */}
+      <RoutesComponent />
     </div>
   );
 }

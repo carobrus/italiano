@@ -1,0 +1,1 @@
+export const VERBS_COUNT = 6122;
