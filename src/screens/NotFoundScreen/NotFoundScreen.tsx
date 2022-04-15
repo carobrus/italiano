@@ -1,5 +1,6 @@
 import React from "react";
 import { ReactComponent as EmptyDraw } from '../../assets/svg/undraw_empty_re_opql.svg';
+import { Emoji } from "../../components";
 
 
 const NotFoundScreen = (): JSX.Element => {
@@ -8,7 +9,10 @@ const NotFoundScreen = (): JSX.Element => {
             <div className="flex items-center">
                 <div className="text-center">
                     <h2 className="text-3xl pb-4">Oops!</h2>
-                    <p> Looks like the page you're trying to reach was not found. </p>
+                    <p>
+                        Looks like the page you're trying to reach was not found.
+                        <Emoji symbol={`\u{1F90C}`} label="Pinched Fingers" />
+                    </p>
                     <button className="my-2">Go back home</button>
                 </div>
                 <div className="w-72">
