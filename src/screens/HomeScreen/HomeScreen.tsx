@@ -1,16 +1,43 @@
-import React from "react";
-import MainImage from '../../assets/images/cinque-terre.jpg';
+import React, { useEffect, useState } from "react";
+import { ReactComponent as GirlReading } from '../../assets/svg/undraw_reading_re_29f8.svg';
+import { RedirectionCard } from "../../components";
 
 const HomeScreen = (): JSX.Element => {
+    const [style, setStyle] = useState("opacity-0")
+
+    useEffect(() => { setStyle("opacity-100"); }, [])
+
     return (
-        <div className="relative flex flex-col place-content-center m-auto w-full">
-            <img src={MainImage} className='absolute object-cover h-screen -z-10' />
-            <div className="max-h-screen h-full flex items-center justify-center">
-                <h1 className="uppercase font-semibold text-5xl">Benvenuto</h1>
+        <div className="max-w-none bg-black">
+            {/* Parallax Scrolling */}
+            <section className="flex items-center justify-center h-screen bg-fixed bg-center bg-cover bg-home transition-opacity duration-1000 ease-in">
+                <h1 className={`uppercase font-bold text-5xl text-white transition-opacity duration-1000 ease-in ${style}`}>
+                    Benvenuto
+                </h1>
+            </section>
+
+
+            <div className='h-52 bg-secondary-green text-white flex justify-center'>
+                <div className="flex items-center justify-between h-full w-full max-w-custom mx-12">
+                    <div className="max-w-md text-xl">
+                        <p>This is just a personal project to improve my italian. Join me on this journey.</p>
+                    </div>
+                    <GirlReading className="w-96 h-96 bg-cover -mt-2" />
+                </div>
             </div>
-            <div className='h-52 bg-secondary-green z-10'></div>
-            <div className='h-60 z-10'></div>
-            <div className='h-52 bg-secondary-red z-10'></div>
+
+            {/* Parallax Scrolling */}
+            <section className="flex items-center justify-center h-[40vh] bg-fixed bg-center bg-cover bg-home">
+                <RedirectionCard url={"/coniugazioni"} name="Coniugazione dei verbi italiani" />
+            </section>
+
+            <div className='h-52 bg-secondary-red text-white flex justify-center'>
+                <div className="flex items-center h-full w-full max-w-custom mx-12">
+                    <div className="max-w-md text-xl">
+                        <p>This is just a personal project to improve my italian. Join me on this journey.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

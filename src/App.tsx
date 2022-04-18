@@ -5,7 +5,7 @@ import RoutesComponent from './routes/routes';
 
 function App() {
   return (
-    <div className="bg-primary-dark text-white flex flex-col">
+    <div className="text-black flex flex-col w-full">
       {/*       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
