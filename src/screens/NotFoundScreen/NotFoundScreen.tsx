@@ -21,7 +21,6 @@ const NotFoundScreen = (): JSX.Element => {
                 </div>
                 <EmptyDraw className="w-96 h-72" />
             </div>
-
         </div>
     );
 }

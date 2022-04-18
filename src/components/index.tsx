@@ -1,4 +1,5 @@
 export * from './Emoji/Emoji'
 export * from './Footer/Footer'
+export * from './Modal/Modal'
 export * from './Navbar/Navbar'
 export * from './RedirectionCard/RedirectionCard'
