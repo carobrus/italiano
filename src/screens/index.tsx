@@ -3,3 +3,4 @@ export * from './ArticoliScreen/ArticoliScreen';
 export * from './ConiugazioniScreen/ConiugazioniScreen';
 export * from './HomeScreen/HomeScreen';
 export * from './NotFoundScreen/NotFoundScreen';
+export * from './ParolacciaScreen/ParolacciaScreen';

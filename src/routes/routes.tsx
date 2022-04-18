@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Footer, Navbar } from "../components";
-import { ConiugazioniScreen, HomeScreen, NotFoundScreen } from "../screens"
+import { ArticoliScreen, ConiugazioniScreen, HomeScreen, NotFoundScreen, ParolacciaScreen } from "../screens"
 
 
 const RoutesComponent = (): JSX.Element => {
@@ -10,7 +10,9 @@ const RoutesComponent = (): JSX.Element => {
             <Navbar />
             <Routes>
                 <Route path="/" element={<HomeScreen />} />
+                <Route path="/articoli" element={<ArticoliScreen />} />
                 <Route path="/coniugazioni" element={<ConiugazioniScreen />} />
+                <Route path="/segreto" element={<ParolacciaScreen />} />
                 <Route path="*" element={<NotFoundScreen />} />
             </Routes>
             <Footer />

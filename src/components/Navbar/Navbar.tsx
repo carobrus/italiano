@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Icon } from '../../assets/svg/italy-icon.svg';
 
 const pages = [
-    { name: 'Coniugazioni', url: '/coniugazioni' }
+    { name: 'Coniugazioni', url: '/coniugazioni' },
+    { name: 'Articoli', url: '/articoli' }
 ]
 
 const Navbar = (): JSX.Element => {
     return (
         <nav className="bg-black text-white text-lg flex justify-center">
-            <div className="flex items-center space-x-3 py-3 mx-6 max-w-custom w-full">
-                <Link to={'/'} className="mr-4" >
+            <div className="flex items-center space-x-8 py-3 max-w-custom w-full">
+                <Link to={'/'}>
                     <Icon className='hover:opacity-80' />
                 </Link>
                 {pages.map(p =>
