@@ -22,7 +22,7 @@ const HomeScreen = (): JSX.Element => {
                     <div className="max-w-md text-xl">
                         <p>This is just a personal project to improve my italian. Join me on this journey.</p>
                     </div>
-                    <GirlReading className="w-96 h-96 bg-cover -mt-2" />
+                    <GirlReading className="w-96 h-96 bg-cover -mt-2 hidden md:block" />
                 </div>
             </div>
 
