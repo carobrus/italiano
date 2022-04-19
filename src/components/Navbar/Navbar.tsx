@@ -12,7 +12,7 @@ const Navbar = (): JSX.Element => {
         <nav className="bg-black text-white text-lg flex justify-center">
             <div className="flex items-center space-x-8 py-3 max-w-custom w-full">
                 <Link to={'/'}>
-                    <Icon className='hover:opacity-80' />
+                    <Icon className='ml-6 hover:opacity-80' />
                 </Link>
                 {pages.map(p =>
                     <Link to={p.url} key={p.name} className='hover:text-neutral-300'>{p.name}</Link>
