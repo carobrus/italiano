@@ -4,7 +4,8 @@ import PresentModalContent from "./PresentModalContent";
 import { VerbAns, VerbConjugated } from "../../models/verb";
 import { Modal } from "../../components";
 import { ReactComponent as XIcon } from '../../assets/svg/x-circle.svg';
-import { ReactComponent as CheckIcon } from '../../assets/svg/check-circle.svg';
+import { ReactComponent as CheckIcon } from '../../assets/svg/check.svg';
+import { ReactComponent as CheckCircleIcon } from '../../assets/svg/check-circle.svg';
 import { ReactComponent as InformationIcon } from '../../assets/svg/information-circle.svg';
 
 const currentTensesAllow = ["PRESENTE", "IMPERATIVO"]
@@ -16,30 +17,26 @@ const ConiugazioniScreen = (): JSX.Element => {
     const [answear, setAnswear] = useState<VerbAns[]>([]);
     const [correctAnswearCount, setCorrectAnswearCount] = useState(0);
     const [wrongAnswearCount, setWrongAnswearCount] = useState(0);
+    const [areAllItemsCorrect, setAreAllItemsCorrect] = useState(false);
 
     useEffect(() => {
         setVerb(getRandomVerb('PRESENTE'));
     }, [])
 
     const getAnotherVerb = (): void => {
-        setVerb(getRandomVerb('PRESENTE'))
+        setAnswear([]);
+        setAreAllItemsCorrect(false);
+        Array.from(document.querySelectorAll("input")).forEach(
+            input => (input.value = "")
+        );
+        setVerb(getRandomVerb('PRESENTE'));
     }
 
     const checkResult = (): void => {
-        console.log(verb);
-        console.log(answear);
-
         if (verb !== undefined) {
             let alreadyCorrect = 0;
             let correctAnswearCount = 0;
             let wrongAnswearCount = 0;
-
-            /*if (answear !== undefined && verb !== undefined) {
-                for (let key in answear) {
-                    if (!(key in verb!)) isCorrect = false;
-                    if (String(answear[key as keyof VerbSimple]) !== String(verb[key as keyof VerbConjugated])) isCorrect = false;
-                }
-            }*/
 
             answear.forEach(a => {
                 if (a.correctAns === false || a.correctAns === undefined) {
@@ -65,17 +62,14 @@ const ConiugazioniScreen = (): JSX.Element => {
             setWrongAnswearCount(oldValue => oldValue + wrongAnswearCount);
 
             if (alreadyCorrect + correctAnswearCount === person.length) {
-                console.log("Congratulations! All are correct")
+                setAreAllItemsCorrect(true)
             }
         }
-        // check cases
-        // mark correct answears so far
         // clear results and save best score on on local storage
-        //try catch get another verb
+        //  try catch get another verb
     }
 
     const handleChange = (evt: React.FormEvent<HTMLInputElement>) => {
-        // [evt.currentTarget.name]: evt.currentTarget.value
         const name = evt.currentTarget.name;
         const value = evt.currentTarget.value;
 
@@ -84,6 +78,10 @@ const ConiugazioniScreen = (): JSX.Element => {
             ansFiltered.push({ person: name, ans: value })
             return ansFiltered;
         });
+    }
+
+    const isInputCorrect = (person: string): boolean => {
+        return (answear.find(a => a.person === person && a.correctAns) !== undefined)
     }
 
     return (
@@ -112,22 +110,38 @@ const ConiugazioniScreen = (): JSX.Element => {
                         <div className="bg-tertiary-red rounded-full py-2 border-2 border-white text-center font-semibold text-white my-2 uppercase">
                             {verb && verb.verbInfinite}
                         </div>
-                        {person.map(p => <div key={p[1]} className="flex items-center bg-white text-black rounded-full mb-2 py-1 font-medium">
-                            <div className="w-24 text-center border-r-2 border-neutral-300 text-sm">{p[0]}</div>
-                            <input className="w-full mx-4 focus:outline-none" onChange={handleChange} name={p[1]}></input>
-                        </div>)}
+                        {person.map(p => {
+                            const isCorrect = isInputCorrect(p[1]);
+                            return <div key={p[1]} className="flex items-center bg-white text-black rounded-full mb-2 py-1 font-medium">
+                                <div className="w-20 text-center border-r-2 border-neutral-300 text-sm cursor-default">{p[0]}</div>
+                                <input
+                                    className={`flex-grow mx-4 focus:outline-none ${!isCorrect && 'pr-7'}`}
+                                    onChange={handleChange}
+                                    name={p[1]}
+                                    disabled={isCorrect}
+                                    autoComplete="off"
+                                >
+                                </input>
+                                {isCorrect && <CheckIcon className="text-primary-green w-5 mr-2" />}
+                            </div>
+                        })}
                     </div>
 
-                    <button onClick={checkResult} className="rounded-full bg-primary-green hover:bg-secondary-green text-white font-semibold w-28 py-1 place-self-center">
-                        Check
-                    </button>
+                    <div className="flex space-x-4 justify-center">
+                        <button onClick={getAnotherVerb} className="rounded-full bg-primary-green hover:bg-secondary-green text-white font-semibold w-32 py-1 place-self-center">
+                            Cambia Verbo
+                        </button>
+                        <button onClick={checkResult} disabled={areAllItemsCorrect} className={`rounded-full bg-primary-green hover:bg-secondary-green text-white font-semibold w-32 py-1 place-self-center ${areAllItemsCorrect && 'bg-secondary-green cursor-default'}`}>
+                            Check
+                        </button>
+                    </div>
 
                 </div>
             </div>
 
             <div className="flex tabular-nums items-center text-center py-3 text-3xl font-semibold text-black border-2 border-black bg-white rounded-full mt-6 mb-8 divide-x-2 divide-neutral-300">
                 <div className="px-6 flex">
-                    <CheckIcon className="text-primary-green w-6 mr-2" />
+                    <CheckCircleIcon className="text-primary-green w-6 mr-2" />
                     <div> {correctAnswearCount} </div>
                 </div>
                 <div className="px-6 flex">
