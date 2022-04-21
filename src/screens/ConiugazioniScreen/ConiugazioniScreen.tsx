@@ -27,9 +27,10 @@ const ConiugazioniScreen = (): JSX.Element => {
 
     const checkResult = (): void => {
         console.log(verb);
+        console.log(answear);
 
-        let areAllCorrect = true;
         if (verb !== undefined) {
+            let alreadyCorrect = 0;
             let correctAnswearCount = 0;
             let wrongAnswearCount = 0;
 
@@ -41,17 +42,31 @@ const ConiugazioniScreen = (): JSX.Element => {
             }*/
 
             answear.forEach(a => {
-                if (String(verb[a.person as keyof VerbConjugated]) === a.ans) {
-                    a.correctAns = true;
-                    correctAnswearCount++;
-                } else {
-                    a.correctAns = false;
-                    wrongAnswearCount++;
+                if (a.correctAns === false || a.correctAns === undefined) {
+                    if (String(verb[a.person as keyof VerbConjugated]) === a.ans) {
+                        a.correctAns = true;
+                        correctAnswearCount++;
+                    } else {
+                        a.correctAns = false;
+                        wrongAnswearCount++;
+                    }
+                }
+                else if (a.correctAns) {
+                    alreadyCorrect++;
                 }
             })
 
+            const nonAnsweared = person.length - answear.length;
+            if (nonAnsweared > 0) {
+                wrongAnswearCount += nonAnsweared;
+            }
+
             setCorrectAnswearCount(oldValue => oldValue + correctAnswearCount);
             setWrongAnswearCount(oldValue => oldValue + wrongAnswearCount);
+
+            if (alreadyCorrect + correctAnswearCount === person.length) {
+                console.log("Congratulations! All are correct")
+            }
         }
         // check cases
         // mark correct answears so far
