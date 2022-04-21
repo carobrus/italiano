@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getRandomVerb } from "../../utils/verbs";
 import PresentModalContent from "./PresentModalContent";
-import { VerbConjugated, VerbSimple } from "../../models/verb";
+import { VerbAns, VerbConjugated } from "../../models/verb";
 import { Modal } from "../../components";
 import { ReactComponent as XIcon } from '../../assets/svg/x-circle.svg';
 import { ReactComponent as CheckIcon } from '../../assets/svg/check-circle.svg';
@@ -13,7 +13,7 @@ const person = [['io', 's1'], ['tu', 's2'], ['lui/lei', 's3'], ['noi', 'p1'], ['
 const ConiugazioniScreen = (): JSX.Element => {
     const [showModal, setShowModal] = useState(false);
     const [verb, setVerb] = useState<VerbConjugated>();
-    const [answear, setAnswear] = useState<VerbSimple>({ s1: "", s2: "", s3: "", p1: "", p2: "", p3: "" });
+    const [answear, setAnswear] = useState<VerbAns[]>([]);
     const [correctAnswearCount, setCorrectAnswearCount] = useState(0);
     const [wrongAnswearCount, setWrongAnswearCount] = useState(0);
 
@@ -26,27 +26,48 @@ const ConiugazioniScreen = (): JSX.Element => {
     }
 
     const checkResult = (): void => {
-        let isCorrect = true;
-        if (answear !== undefined && verb !== undefined) {
-            for (let key in answear) {
-                if (!(key in verb!)) isCorrect = false;
-                if (String(answear[key as keyof VerbSimple]) !== String(verb[key as keyof VerbConjugated])) isCorrect = false;
-            }
+        console.log(verb);
+
+        let areAllCorrect = true;
+        if (verb !== undefined) {
+            let correctAnswearCount = 0;
+            let wrongAnswearCount = 0;
+
+            /*if (answear !== undefined && verb !== undefined) {
+                for (let key in answear) {
+                    if (!(key in verb!)) isCorrect = false;
+                    if (String(answear[key as keyof VerbSimple]) !== String(verb[key as keyof VerbConjugated])) isCorrect = false;
+                }
+            }*/
+
+            answear.forEach(a => {
+                if (String(verb[a.person as keyof VerbConjugated]) === a.ans) {
+                    a.correctAns = true;
+                    correctAnswearCount++;
+                } else {
+                    a.correctAns = false;
+                    wrongAnswearCount++;
+                }
+            })
+
+            setCorrectAnswearCount(oldValue => oldValue + correctAnswearCount);
+            setWrongAnswearCount(oldValue => oldValue + wrongAnswearCount);
         }
         // check cases
         // mark correct answears so far
         // clear results and save best score on on local storage
         //try catch get another verb
-
-        if (isCorrect) setCorrectAnswearCount(oldValue => oldValue + 1)
-        else setWrongAnswearCount(oldValue => oldValue + 1);
-
     }
 
     const handleChange = (evt: React.FormEvent<HTMLInputElement>) => {
-        setAnswear({
-            ...answear,
-            [evt.currentTarget.name]: evt.currentTarget.value
+        // [evt.currentTarget.name]: evt.currentTarget.value
+        const name = evt.currentTarget.name;
+        const value = evt.currentTarget.value;
+
+        setAnswear(oldAnswears => {
+            const ansFiltered = oldAnswears.filter(o => o.person !== name)
+            ansFiltered.push({ person: name, ans: value })
+            return ansFiltered;
         });
     }
 
