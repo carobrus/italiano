@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'home': "url('/src/assets/images/cinque-terre.jpg')",
+        'cinque-effect': "url('/src/assets/images/cinque-terre-with-effects.jpg')",
       },
       colors: {
         'primary-red': '#CD212A',
