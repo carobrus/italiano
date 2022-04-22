@@ -1,10 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { ReactComponent as HeartIcon } from '../../assets/svg/heart.svg';
-
-const pages = [
-    { name: 'Coniugazioni', url: '/coniugazioni' }
-]
+import { HeartIcon } from "../../assets/svg";
 
 const Footer = (): JSX.Element => {
     return (

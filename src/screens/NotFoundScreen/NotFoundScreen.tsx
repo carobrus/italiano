@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ReactComponent as EmptyDraw } from '../../assets/svg/undraw_empty_re_opql.svg';
+import { UndrawEmpty } from "../../assets/svg";
 import { Emoji } from "../../components";
 
 
@@ -19,7 +19,7 @@ const NotFoundScreen = (): JSX.Element => {
                         <Link to={"/"}>Go Back Home</Link>
                     </button>
                 </div>
-                <EmptyDraw className="w-96 h-72" />
+                <UndrawEmpty className="w-96 h-72" />
             </div>
         </div>
     );

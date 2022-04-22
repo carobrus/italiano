@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ReactComponent as GirlReading } from '../../assets/svg/undraw_reading_re_29f8.svg';
+import { UndrawReading } from "../../assets/svg";
 import { RedirectionCard } from "../../components";
 
 const HomeScreen = (): JSX.Element => {
@@ -22,7 +22,7 @@ const HomeScreen = (): JSX.Element => {
                     <div className="max-w-md text-xl">
                         <p>This is just a personal project to improve my italian. Join me on this journey.</p>
                     </div>
-                    <GirlReading className="w-96 h-96 bg-cover -mt-2 hidden md:block" />
+                    <UndrawReading className="w-96 h-96 bg-cover -mt-2 hidden md:block" />
                 </div>
             </div>
 

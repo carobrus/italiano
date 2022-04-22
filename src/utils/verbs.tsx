@@ -8,18 +8,27 @@ let VERB_LIST: VerbsInfo = require('../assets/verbs.json');
 
 
 export const getRandomVerb = (italianTense: ItalianTense): VerbConjugated => {
-    const verbNumber = getRandomNumber(0, VERBS_COUNT);
-    const infiniteVerb = Object.keys(VERB_LIST)[verbNumber];
+    let result: VerbConjugated | undefined;
 
-    const result: VerbConjugated = {
-        verbInfinite: infiniteVerb,
-        s2: getConjugation(VERB_LIST, infiniteVerb, italianTense, 2, 'S'),
-        s1: getConjugation(VERB_LIST, infiniteVerb, italianTense, 1, 'S'),
-        s3: getConjugation(VERB_LIST, infiniteVerb, italianTense, 3, 'S'),
-        p1: getConjugation(VERB_LIST, infiniteVerb, italianTense, 1, 'P'),
-        p2: getConjugation(VERB_LIST, infiniteVerb, italianTense, 2, 'P'),
-        p3: getConjugation(VERB_LIST, infiniteVerb, italianTense, 3, 'P'),
-    };
+    do {
+        try {
+            const verbNumber = getRandomNumber(0, VERBS_COUNT);
+            const infiniteVerb = Object.keys(VERB_LIST)[verbNumber];
+
+            result = {
+                verbInfinite: infiniteVerb,
+                s2: getConjugation(VERB_LIST, infiniteVerb, italianTense, 2, 'S'),
+                s1: getConjugation(VERB_LIST, infiniteVerb, italianTense, 1, 'S'),
+                s3: getConjugation(VERB_LIST, infiniteVerb, italianTense, 3, 'S'),
+                p1: getConjugation(VERB_LIST, infiniteVerb, italianTense, 1, 'P'),
+                p2: getConjugation(VERB_LIST, infiniteVerb, italianTense, 2, 'P'),
+                p3: getConjugation(VERB_LIST, infiniteVerb, italianTense, 3, 'P'),
+            };
+        }
+        catch {
+            result = undefined
+        }
+    } while (result === undefined);
 
     return result;
 }

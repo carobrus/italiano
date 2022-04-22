@@ -3,12 +3,11 @@ import { getRandomVerb } from "../../utils/verbs";
 import PresentModalContent from "./PresentModalContent";
 import { VerbAns, VerbConjugated } from "../../models/verb";
 import { Modal } from "../../components";
-import { ReactComponent as XIcon } from '../../assets/svg/x-circle.svg';
-import { ReactComponent as CheckIcon } from '../../assets/svg/check.svg';
-import { ReactComponent as CheckCircleIcon } from '../../assets/svg/check-circle.svg';
 import { ReactComponent as InformationIcon } from '../../assets/svg/information-circle.svg';
+import { CheckCircleIcon, CheckIcon, TrashIcon, XCircleIcon } from "../../assets/svg";
+import { ItalianTense } from "italian-verbs";
+import { TENSES_ALLOWED } from "../../utils/constants";
 
-const currentTensesAllow = ["PRESENTE", "IMPERATIVO"]
 const person = [['io', 's1'], ['tu', 's2'], ['lui/lei', 's3'], ['noi', 'p1'], ['voi', 'p2'], ['loro', 'p3']]
 
 const ConiugazioniScreen = (): JSX.Element => {
@@ -18,10 +17,26 @@ const ConiugazioniScreen = (): JSX.Element => {
     const [correctAnswearCount, setCorrectAnswearCount] = useState(0);
     const [wrongAnswearCount, setWrongAnswearCount] = useState(0);
     const [areAllItemsCorrect, setAreAllItemsCorrect] = useState(false);
+    const [tense, setTense] = useState<ItalianTense>("PRESENTE");
 
     useEffect(() => {
-        setVerb(getRandomVerb('PRESENTE'));
+        setVerb(getRandomVerb(tense));
+
+        const correctAnsLocal = localStorage.getItem('correctAnswears');
+        const wrongAnsLocal = localStorage.getItem('wrongAnswears');
+        if (correctAnsLocal && wrongAnsLocal) {
+            setCorrectAnswearCount(parseInt(correctAnsLocal));
+            setWrongAnswearCount(parseInt(wrongAnsLocal));
+        }
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem('correctAnswears', JSON.stringify(correctAnswearCount));
+    }, [correctAnswearCount]);
+
+    useEffect(() => {
+        localStorage.setItem('wrongAnswears', JSON.stringify(wrongAnswearCount));
+    }, [wrongAnswearCount]);
 
     const getAnotherVerb = (): void => {
         setAnswear([]);
@@ -29,7 +44,7 @@ const ConiugazioniScreen = (): JSX.Element => {
         Array.from(document.querySelectorAll("input")).forEach(
             input => (input.value = "")
         );
-        setVerb(getRandomVerb('PRESENTE'));
+        setVerb(getRandomVerb(tense));
     }
 
     const checkResult = (): void => {
@@ -65,8 +80,6 @@ const ConiugazioniScreen = (): JSX.Element => {
                 setAreAllItemsCorrect(true)
             }
         }
-        // clear results and save best score on on local storage
-        //  try catch get another verb
     }
 
     const handleChange = (evt: React.FormEvent<HTMLInputElement>) => {
@@ -90,20 +103,18 @@ const ConiugazioniScreen = (): JSX.Element => {
             <div className="bg-center bg-cover bg-cinque-effect w-full flex items-center justify-center py-4 rounded-b-3xl">
                 <div className="max-w-custom mx-6 flex flex-col place-content-center">
 
-                    <h1 className="text-2xl uppercase font-semibold pb-3 text-white">Coniugazione dei verbi italiani</h1>
+                    <h1 className="text-2xl uppercase font-semibold pb-3 text-white text-center">Coniugazione dei verbi italiani</h1>
                     <div className="flex items-center">
                         <div className="group flex-grow">
                             <div className="bg-tertiary-red group-hover:bg-secondary-red rounded-full px-2 border-2 border-white text-white">
                                 <select name="tense" id="tense" className="px-1 py-1 w-full rounded-full bg-tertiary-red group-hover:bg-secondary-red text-center font-semibold focus:outline-none">
-                                    {currentTensesAllow.map((t) => <option key={t} value={t}>{t}</option>)}
+                                    {TENSES_ALLOWED.map((t) => <option key={t.tense} value={t.tense}>{t.tense}</option>)}
                                 </select>
                             </div>
                         </div>
-                        <div className="-mr-10">
-                            <button className="w-6 ml-4" onClick={() => setShowModal(true)}>
-                                <InformationIcon className="text-white" />
-                            </button>
-                        </div>
+                        <button className="w-6 ml-3" onClick={() => setShowModal(true)}>
+                            <InformationIcon className="text-white" />
+                        </button>
                     </div>
 
                     <div className="mt-6 mb-2">
@@ -115,7 +126,7 @@ const ConiugazioniScreen = (): JSX.Element => {
                             return <div key={p[1]} className="flex items-center bg-white text-black rounded-full mb-2 py-1 font-medium">
                                 <div className="w-20 text-center border-r-2 border-neutral-300 text-sm cursor-default">{p[0]}</div>
                                 <input
-                                    className={`flex-grow mx-4 focus:outline-none ${!isCorrect && 'pr-7'}`}
+                                    className={`flex-grow mx-4 focus:outline-none bg-white ${!isCorrect && 'pr-7'}`}
                                     onChange={handleChange}
                                     name={p[1]}
                                     disabled={isCorrect}
@@ -139,15 +150,23 @@ const ConiugazioniScreen = (): JSX.Element => {
                 </div>
             </div>
 
-            <div className="flex tabular-nums items-center text-center py-3 text-3xl font-semibold text-black border-2 border-black bg-white rounded-full mt-6 mb-8 divide-x-2 divide-neutral-300">
-                <div className="px-6 flex">
-                    <CheckCircleIcon className="text-primary-green w-6 mr-2" />
-                    <div> {correctAnswearCount} </div>
+            <div className="flex items-center">
+                <div className="flex tabular-nums items-center text-center py-3 text-3xl font-semibold text-black border-2 border-black bg-white rounded-full mt-6 mb-8 divide-x-2 divide-neutral-300">
+                    <div className="px-6 flex">
+                        <CheckCircleIcon className="text-primary-green w-6 mr-2" />
+                        <div> {correctAnswearCount} </div>
+                    </div>
+                    <div className="px-6 flex">
+                        <XCircleIcon className="text-primary-red w-6 mr-2" />
+                        <div> {wrongAnswearCount} </div>
+                    </div>
                 </div>
-                <div className="px-6 flex">
-                    <XIcon className="text-primary-red w-6 mr-2" />
-                    <div> {wrongAnswearCount} </div>
-                </div>
+                <button className="-mr-8">
+                    <TrashIcon className="text-black w-6 ml-2" onClick={() => {
+                        setCorrectAnswearCount(0);
+                        setWrongAnswearCount(0);
+                    }} />
+                </button>
             </div>
         </div>
     );
