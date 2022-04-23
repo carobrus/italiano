@@ -19,7 +19,7 @@ const NotFoundScreen = (): JSX.Element => {
                         <Link to={"/"}>Go Back Home</Link>
                     </button>
                 </div>
-                <UndrawEmpty className="w-96 h-72" />
+                <UndrawEmpty className="w-auto max-h-72" />
             </div>
         </div>
     );

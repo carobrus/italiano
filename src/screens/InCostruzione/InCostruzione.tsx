@@ -10,7 +10,7 @@ const InCostruzione = (): JSX.Element => {
                     <h2 className="text-3xl pb-4 font-semibold">In Costruzione!</h2>
                     <p> Come back later. </p>
                 </div>
-                <UndrawUnderConstruction className="h-72 w-auto" />
+                <UndrawUnderConstruction className="h-52 w-auto md:h-72" />
             </div>
         </div>
     );
