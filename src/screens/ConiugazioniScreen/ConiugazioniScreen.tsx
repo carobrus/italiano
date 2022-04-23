@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getRandomVerb } from "../../utils/verbs";
 import PresentModalContent from "./PresentModalContent";
-import { VerbAns, VerbConjugated } from "../../models/verb";
+import { PERSON, TENSE_TYPE, VerbAns, VerbConjugated } from "../../models/verb";
 import { Modal } from "../../components";
 import { ReactComponent as InformationIcon } from '../../assets/svg/information-circle.svg';
 import { CheckCircleIcon, CheckIcon, TrashIcon, XCircleIcon } from "../../assets/svg";
-import { ItalianTense } from "italian-verbs";
-import { TENSES_ALLOWED } from "../../utils/constants";
-
-const person = [['io', 's1'], ['tu', 's2'], ['lui/lei', 's3'], ['noi', 'p1'], ['voi', 'p2'], ['loro', 'p3']]
+import { PERSON_MAP, TENSES_ALLOWED } from "../../utils/constants";
 
 const ConiugazioniScreen = (): JSX.Element => {
     const [showModal, setShowModal] = useState(false);
@@ -17,11 +14,9 @@ const ConiugazioniScreen = (): JSX.Element => {
     const [correctAnswearCount, setCorrectAnswearCount] = useState(0);
     const [wrongAnswearCount, setWrongAnswearCount] = useState(0);
     const [areAllItemsCorrect, setAreAllItemsCorrect] = useState(false);
-    const [tense, setTense] = useState<ItalianTense>("PRESENTE");
+    const [tense, setTense] = useState<TENSE_TYPE>('PRESENTE');
 
     useEffect(() => {
-        setVerb(getRandomVerb(tense));
-
         const correctAnsLocal = localStorage.getItem('correctAnswears');
         const wrongAnsLocal = localStorage.getItem('wrongAnswears');
         if (correctAnsLocal && wrongAnsLocal) {
@@ -29,6 +24,10 @@ const ConiugazioniScreen = (): JSX.Element => {
             setWrongAnswearCount(parseInt(wrongAnsLocal));
         }
     }, [])
+
+    useEffect(() => {
+        setVerb(getRandomVerb(tense));
+    }, [tense])
 
     useEffect(() => {
         localStorage.setItem('correctAnswears', JSON.stringify(correctAnswearCount));
@@ -55,7 +54,7 @@ const ConiugazioniScreen = (): JSX.Element => {
 
             answear.forEach(a => {
                 if (a.correctAns === false || a.correctAns === undefined) {
-                    if (String(verb[a.person as keyof VerbConjugated]) === a.ans) {
+                    if (String(verb.persons[a.person]).toLowerCase() === String(a.ans).toLowerCase()) {
                         a.correctAns = true;
                         correctAnswearCount++;
                     } else {
@@ -68,7 +67,7 @@ const ConiugazioniScreen = (): JSX.Element => {
                 }
             })
 
-            const nonAnsweared = person.length - answear.length;
+            const nonAnsweared = TENSES_ALLOWED[tense].length - answear.length;
             if (nonAnsweared > 0) {
                 wrongAnswearCount += nonAnsweared;
             }
@@ -76,14 +75,14 @@ const ConiugazioniScreen = (): JSX.Element => {
             setCorrectAnswearCount(oldValue => oldValue + correctAnswearCount);
             setWrongAnswearCount(oldValue => oldValue + wrongAnswearCount);
 
-            if (alreadyCorrect + correctAnswearCount === person.length) {
+            if (alreadyCorrect + correctAnswearCount === TENSES_ALLOWED[tense].length) {
                 setAreAllItemsCorrect(true)
             }
         }
     }
 
-    const handleChange = (evt: React.FormEvent<HTMLInputElement>) => {
-        const name = evt.currentTarget.name;
+    const handleChangeInput = (evt: React.FormEvent<HTMLInputElement>) => {
+        const name = evt.currentTarget.name as PERSON;
         const value = evt.currentTarget.value;
 
         setAnswear(oldAnswears => {
@@ -91,6 +90,10 @@ const ConiugazioniScreen = (): JSX.Element => {
             ansFiltered.push({ person: name, ans: value })
             return ansFiltered;
         });
+    }
+
+    const onChangeTense = (evt: React.FormEvent<HTMLSelectElement>) => {
+        setTense(evt.currentTarget.value as TENSE_TYPE);
     }
 
     const isInputCorrect = (person: string): boolean => {
@@ -107,8 +110,13 @@ const ConiugazioniScreen = (): JSX.Element => {
                     <div className="flex items-center">
                         <div className="group flex-grow">
                             <div className="bg-tertiary-red group-hover:bg-secondary-red rounded-full px-2 border-2 border-white text-white">
-                                <select name="tense" id="tense" className="px-1 py-1 w-full rounded-full bg-tertiary-red group-hover:bg-secondary-red text-center font-semibold focus:outline-none">
-                                    {TENSES_ALLOWED.map((t) => <option key={t.tense} value={t.tense}>{t.tense}</option>)}
+                                <select
+                                    id="tense"
+                                    name="tense"
+                                    className="px-1 py-1 w-full rounded-full bg-tertiary-red group-hover:bg-secondary-red text-center font-semibold focus:outline-none"
+                                    onChange={onChangeTense}
+                                >
+                                    {Object.keys(TENSES_ALLOWED).map((t) => <option key={t} value={t}>{t}</option>)}
                                 </select>
                             </div>
                         </div>
@@ -121,14 +129,14 @@ const ConiugazioniScreen = (): JSX.Element => {
                         <div className="bg-tertiary-red rounded-full py-2 border-2 border-white text-center font-semibold text-white my-2 uppercase">
                             {verb && verb.verbInfinite}
                         </div>
-                        {person.map(p => {
-                            const isCorrect = isInputCorrect(p[1]);
-                            return <div key={p[1]} className="flex items-center bg-white text-black rounded-full mb-2 py-1 font-medium">
-                                <div className="w-20 text-center border-r-2 border-neutral-300 text-sm cursor-default">{p[0]}</div>
+                        {TENSES_ALLOWED[tense].map(p => {
+                            const isCorrect = isInputCorrect(p);
+                            return <div key={p} className="flex items-center bg-white text-black rounded-full mb-2 py-1 font-medium">
+                                <div className="w-20 text-center border-r-2 border-neutral-300 text-sm cursor-default">{PERSON_MAP[p]}</div>
                                 <input
                                     className={`flex-grow mx-4 focus:outline-none bg-white ${!isCorrect && 'pr-7'}`}
-                                    onChange={handleChange}
-                                    name={p[1]}
+                                    onChange={handleChangeInput}
+                                    name={p}
                                     disabled={isCorrect}
                                     autoComplete="off"
                                 >

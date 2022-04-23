@@ -1,11 +1,18 @@
+import { Tenses } from "../models/verb";
+
 export const VERBS_COUNT = 6122;
 
-export const TENSES_ALLOWED = [{
-    'tense': 'PRESENTE',
-    'person': [['io', 's1'], ['tu', 's2'], ['lui/lei', 's3'], ['noi', 'p1'], ['voi', 'p2'], ['loro', 'p3']]
-},
-{
-    'tense': 'IMPERATIVO',
-    'person': [['tu', 's2'], ['noi', 'p1'], ['voi', 'p2']]
+export const PERSON_MAP = {
+    s1: 'io',
+    s2: 'tu',
+    s3: 'lui/lei',
+    p1: 'noi',
+    p2: 'voi',
+    p3: 'loro'
 }
-]
+
+export const TENSES_ALLOWED: Tenses =
+{
+    'PRESENTE': ['s1', 's2', 's3', 'p1', 'p2', 'p3'],
+    'IMPERATIVO': ['s2', 'p1', 'p2'],
+}
