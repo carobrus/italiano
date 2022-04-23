@@ -108,8 +108,8 @@ const ConiugazioniScreen = (): JSX.Element => {
 
                     <h1 className="text-2xl uppercase font-semibold pb-3 text-white text-center">Coniugazione dei verbi italiani</h1>
                     <div className="flex items-center">
-                        <div className="group flex-grow">
-                            <div className="bg-tertiary-red group-hover:bg-secondary-red rounded-full px-2 border-2 border-white text-white">
+                        <div className="flex-grow group">
+                            <div className="ml-9 bg-tertiary-red group-hover:bg-secondary-red rounded-full px-2 border-2 border-white text-white">
                                 <select
                                     id="tense"
                                     name="tense"

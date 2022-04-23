@@ -18,6 +18,7 @@ module.exports = {
       },
       maxWidth: {
         'custom': '1280px',
+        'custom-nav': '1920px',
       }
     },
   },

@@ -10,7 +10,7 @@ const pages = [
 const Navbar = (): JSX.Element => {
     return (
         <nav className="bg-black text-white text-lg flex justify-center">
-            <div className="flex items-center space-x-8 py-3 max-w-custom w-full">
+            <div className="flex items-center space-x-8 py-3 max-w-custom-nav w-full">
                 <Link to={'/'}>
                     <ItalyIcon className='ml-6 hover:opacity-80' />
                 </Link>
