@@ -106,7 +106,7 @@ const ConiugazioniScreen = (): JSX.Element => {
             <div className="bg-center bg-cover bg-cinque-effect w-full flex items-center justify-center py-4 rounded-b-3xl">
                 <div className="max-w-custom mx-6 flex flex-col place-content-center">
 
-                    <h1 className="text-2xl uppercase font-semibold pb-3 text-white text-center">Coniugazione dei verbi italiani</h1>
+                    <h1 className="text-2xl uppercase font-semibold pb-3 text-white text-center">Coniugazione dei verbi</h1>
                     <div className="flex items-center">
                         <div className="flex-grow group">
                             <div className="ml-9 bg-tertiary-red group-hover:bg-secondary-red rounded-full px-2 border-2 border-white text-white">

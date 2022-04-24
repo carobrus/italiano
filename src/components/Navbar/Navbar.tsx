@@ -4,7 +4,7 @@ import { ItalyIcon } from "../../assets/svg";
 
 const pages = [
     { name: 'Coniugazioni', url: '/coniugazioni' },
-    { name: 'Articoli', url: '/articoli' }
+    // { name: 'Articoli', url: '/articoli' }
 ]
 
 const Navbar = (): JSX.Element => {
