@@ -16,3 +16,14 @@ export const TENSES_ALLOWED: Tenses =
     'PRESENTE': ['s1', 's2', 's3', 'p1', 'p2', 'p3'],
     'IMPERATIVO': ['s2', 'p1', 'p2'],
 }
+
+// const keys = {
+//     PRESENTE: ['ind', 'pres'],
+//     IMPERFETTO: ['ind', 'impf'],
+//     PASSATO_REMOTO: ['ind', 'past'],
+//     FUTURO_SEMPLICE: ['ind', 'fut'],
+//     CONG_PRESENTE: ['sub', 'pres'],
+//     CONG_IMPERFETTO: ['sub', 'impf'],
+//     COND_PRESENTE: ['cond', 'pres'],
+//     IMPERATIVO: ['impr', 'pres'],
+// };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getRandomVerb } from "../../utils/verbs";
 import PresentModalContent from "./PresentModalContent";
-import { PERSON, TENSE_TYPE, VerbAns, VerbConjugated } from "../../models/verb";
+import { PersonType, TenseType, VerbAns, VerbTense } from "../../models/verb";
 import { Modal } from "../../components";
 import { ReactComponent as InformationIcon } from '../../assets/svg/information-circle.svg';
 import { CheckCircleIcon, CheckIcon, TrashIcon, XCircleIcon } from "../../assets/svg";
@@ -9,12 +9,12 @@ import { PERSON_MAP, TENSES_ALLOWED } from "../../utils/constants";
 
 const ConiugazioniScreen = (): JSX.Element => {
     const [showModal, setShowModal] = useState(false);
-    const [verb, setVerb] = useState<VerbConjugated>();
+    const [verb, setVerb] = useState<{ verbInfinite: string, persons: VerbTense } | undefined>();
     const [answear, setAnswear] = useState<VerbAns[]>([]);
     const [correctAnswearCount, setCorrectAnswearCount] = useState(0);
     const [wrongAnswearCount, setWrongAnswearCount] = useState(0);
     const [areAllItemsCorrect, setAreAllItemsCorrect] = useState(false);
-    const [tense, setTense] = useState<TENSE_TYPE>('PRESENTE');
+    const [tense, setTense] = useState<TenseType>('PRESENTE');
 
     useEffect(() => {
         const correctAnsLocal = localStorage.getItem('correctAnswears');
@@ -82,7 +82,7 @@ const ConiugazioniScreen = (): JSX.Element => {
     }
 
     const handleChangeInput = (evt: React.FormEvent<HTMLInputElement>) => {
-        const name = evt.currentTarget.name as PERSON;
+        const name = evt.currentTarget.name as PersonType;
         const value = evt.currentTarget.value;
 
         setAnswear(oldAnswears => {
@@ -93,7 +93,7 @@ const ConiugazioniScreen = (): JSX.Element => {
     }
 
     const onChangeTense = (evt: React.FormEvent<HTMLSelectElement>) => {
-        setTense(evt.currentTarget.value as TENSE_TYPE);
+        setTense(evt.currentTarget.value as TenseType);
     }
 
     const isInputCorrect = (person: string): boolean => {
