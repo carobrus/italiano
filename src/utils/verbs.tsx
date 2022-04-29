@@ -1,32 +1,39 @@
-
-import { stringify } from "querystring";
-import { TenseType, VerbCollection, VerbTense } from "../models/verb";
-import { VERBS_COUNT } from "./constants";
+import { TenseType, VerbCollection, VerbIndex, VerbTense } from "../models/verb";
 import { getRandomNumber } from "./numbers";
 let VERB_LIST: VerbCollection = require('../assets/verbs.json');
+let VERB_INDEX: VerbIndex = require('../assets/index-verbs.json');
 
+export const getRandomVerb = (tense: TenseType, ratio: number): { verbInfinite: string, persons: VerbTense } => {
+    let result: VerbTense | undefined = {};
+    const infiniteVerb = getRandomInfiniteVerb(ratio);
 
-export const getRandomVerb = (tense: TenseType): { verbInfinite: string, persons: VerbTense } => {
-    let result: VerbTense | undefined;
-    let infiniteVerb = "";
+    if (tense === 'PRESENTE') {
+        result = VERB_LIST[infiniteVerb]['ind']!['pres'];
+    } else if (tense === 'IMPERATIVO') {
+        result = VERB_LIST[infiniteVerb]['impr']!['pres'];
+    }
 
-    do {
-        try {
-            const verbNumber = getRandomNumber(0, VERBS_COUNT);
-            infiniteVerb = Object.keys(VERB_LIST)[verbNumber];
+    console.log(VERB_LIST[infiniteVerb].type);
 
-            if (tense === 'PRESENTE') {
-                result = VERB_LIST[infiniteVerb]['ind']!['pres'];
-            } else {
-                result = VERB_LIST[infiniteVerb]['impr']!['pres'];
-            }
+    return { verbInfinite: infiniteVerb, persons: result ?? {} };
+}
 
-        }
-        catch {
-            result = undefined
-        }
-    } while (result === undefined);
+const getRandomInfiniteVerb = (ratio: number): string => {
+    const elems = ["regular", "irregular", "irregular_on_root"]
+    const weights = [(10 - ratio) * 2, ratio, ratio]; // weight of each element above
+    const totalWeight = weights.reduce((a, b) => a + b, 0); // get total weight (in this case, 16)
 
+    const weighedElems = [];
+    let currentElem = 0;
+    while (currentElem < elems.length) {
+        for (let i = 0; i < weights[currentElem]; i++)
+            weighedElems[weighedElems.length] = elems[currentElem];
+        currentElem++;
+    }
 
-    return { verbInfinite: infiniteVerb, persons: result };
+    const rnd = Math.floor(Math.random() * totalWeight);
+    const typeOfVerb = weighedElems[rnd];
+
+    const verbNumber = getRandomNumber(0, VERB_INDEX[typeOfVerb].length);
+    return VERB_INDEX[typeOfVerb][verbNumber];
 }

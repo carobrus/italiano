@@ -15,6 +15,7 @@ const ConiugazioniScreen = (): JSX.Element => {
     const [wrongAnswearCount, setWrongAnswearCount] = useState(0);
     const [areAllItemsCorrect, setAreAllItemsCorrect] = useState(false);
     const [tense, setTense] = useState<TenseType>('PRESENTE');
+    const [ratio, setRatio] = useState(4);
 
     useEffect(() => {
         const correctAnsLocal = localStorage.getItem('correctAnswears');
@@ -26,7 +27,7 @@ const ConiugazioniScreen = (): JSX.Element => {
     }, [])
 
     useEffect(() => {
-        setVerb(getRandomVerb(tense));
+        setVerb(getRandomVerb(tense, ratio));
     }, [tense])
 
     useEffect(() => {
@@ -43,7 +44,7 @@ const ConiugazioniScreen = (): JSX.Element => {
         Array.from(document.querySelectorAll("input")).forEach(
             input => (input.value = "")
         );
-        setVerb(getRandomVerb(tense));
+        setVerb(getRandomVerb(tense, ratio));
     }
 
     const checkResult = (): void => {
@@ -124,6 +125,18 @@ const ConiugazioniScreen = (): JSX.Element => {
                             <InformationIcon className="text-white" />
                         </button>
                     </div>
+                    <div className="py-2 text-white text-xs">
+                        <div> Regolare / irregolare rapporto</div>
+                        <input
+                            className="my-0.5 text-black w-full" type="range" min="0" max="10"
+                            value={ratio}
+                            onChange={(evt: React.FormEvent<HTMLInputElement>) => setRatio(parseInt(evt.currentTarget.value))} />
+                        <div className="flex justify-between">
+                            <div>regolare</div>
+                            <div>irregolare</div>
+                        </div>
+                    </div>
+
 
                     <div className="mt-6 mb-2">
                         <div className="bg-tertiary-red rounded-full py-2 border-2 border-white text-center font-semibold text-white my-2 uppercase">

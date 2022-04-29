@@ -46,11 +46,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## TO-DO
-* Home page
-* Coniugazione verbs
-* Articoli
 * Insultos
-
-
-* Blur image
+* Modal imperativo
 * Traduccion de ingles/italiano a la home
