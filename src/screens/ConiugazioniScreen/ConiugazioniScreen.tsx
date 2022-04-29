@@ -125,13 +125,14 @@ const ConiugazioniScreen = (): JSX.Element => {
                             <InformationIcon className="text-white" />
                         </button>
                     </div>
-                    <div className="py-2 text-white text-xs">
-                        <div> Regolare / irregolare rapporto</div>
+
+                    <div className="py-2 mt-2 text-white text-xs">
+                        <div className="px-1"> Regolare / irregolare rapporto</div>
                         <input
                             className="my-0.5 text-black w-full" type="range" min="0" max="10"
                             value={ratio}
                             onChange={(evt: React.FormEvent<HTMLInputElement>) => setRatio(parseInt(evt.currentTarget.value))} />
-                        <div className="flex justify-between">
+                        <div className="flex justify-between px-1">
                             <div>regolare</div>
                             <div>irregolare</div>
                         </div>
@@ -140,7 +141,9 @@ const ConiugazioniScreen = (): JSX.Element => {
 
                     <div className="mt-6 mb-2">
                         <div className="bg-tertiary-red rounded-full py-2 border-2 border-white text-center font-semibold text-white my-2 uppercase">
-                            {verb && verb.verbInfinite}
+                            <div className="h-4 leading-4">
+                                {verb && verb.verbInfinite}
+                            </div>
                         </div>
                         {TENSES_ALLOWED[tense].map(p => {
                             const isCorrect = isInputCorrect(p);

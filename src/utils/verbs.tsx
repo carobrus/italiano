@@ -4,16 +4,23 @@ let VERB_LIST: VerbCollection = require('../assets/verbs.json');
 let VERB_INDEX: VerbIndex = require('../assets/index-verbs.json');
 
 export const getRandomVerb = (tense: TenseType, ratio: number): { verbInfinite: string, persons: VerbTense } => {
-    let result: VerbTense | undefined = {};
-    const infiniteVerb = getRandomInfiniteVerb(ratio);
+    let result: VerbTense | undefined;
+    let infiniteVerb = '';
+    let numberOfTry = 0;
 
-    if (tense === 'PRESENTE') {
-        result = VERB_LIST[infiniteVerb]['ind']!['pres'];
-    } else if (tense === 'IMPERATIVO') {
-        result = VERB_LIST[infiniteVerb]['impr']!['pres'];
-    }
-
-    console.log(VERB_LIST[infiniteVerb].type);
+    do {
+        try {
+            infiniteVerb = getRandomInfiniteVerb(ratio);
+            if (tense === 'PRESENTE') {
+                result = VERB_LIST[infiniteVerb]['ind']!['pres'];
+            } else if (tense === 'IMPERATIVO') {
+                result = VERB_LIST[infiniteVerb]['impr']!['pres'];
+            }
+        }
+        catch {
+            numberOfTry++;
+        }
+    } while (result === undefined && numberOfTry < 10)
 
     return { verbInfinite: infiniteVerb, persons: result ?? {} };
 }
