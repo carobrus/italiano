@@ -27,8 +27,8 @@ export const getRandomVerb = (tense: TenseType, ratio: number): { verbInfinite: 
 
 const getRandomInfiniteVerb = (ratio: number): string => {
     const elems = ["regular", "irregular", "irregular_on_root"]
-    const weights = [(10 - ratio) * 2, ratio, ratio]; // weight of each element above
-    const totalWeight = weights.reduce((a, b) => a + b, 0); // get total weight (in this case, 16)
+    const weights = [(10 - ratio) * 2, ratio, ratio]; // weight of each element
+    const totalWeight = weights.reduce((a, b) => a + b, 0);
 
     const weighedElems = [];
     let currentElem = 0;

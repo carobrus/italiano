@@ -47,5 +47,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## TO-DO
 * Insultos
-* Modal imperativo
 * Traduccion de ingles/italiano a la home

@@ -6,6 +6,12 @@ import { Modal } from "../../components";
 import { ReactComponent as InformationIcon } from '../../assets/svg/information-circle.svg';
 import { CheckCircleIcon, CheckIcon, TrashIcon, XCircleIcon } from "../../assets/svg";
 import { PERSON_MAP, TENSES_ALLOWED } from "../../utils/constants";
+import ImperativoModalContent from "./ImperativoModalContent";
+
+const modalContents = {
+    'PRESENTE': <PresentModalContent />,
+    'IMPERATIVO': <ImperativoModalContent />
+}
 
 const ConiugazioniScreen = (): JSX.Element => {
     const [showModal, setShowModal] = useState(false);
@@ -103,7 +109,7 @@ const ConiugazioniScreen = (): JSX.Element => {
 
     return (
         <div className="flex flex-col items-center mb-auto">
-            {showModal && <Modal onClose={() => setShowModal(false)}> <PresentModalContent /> </Modal>}
+            {showModal && <Modal onClose={() => setShowModal(false)}> {modalContents[tense]} </Modal>}
             <div className="bg-center bg-cover bg-cinque-effect w-full flex items-center justify-center py-4 rounded-b-3xl">
                 <div className="max-w-custom mx-6 flex flex-col place-content-center">
 
