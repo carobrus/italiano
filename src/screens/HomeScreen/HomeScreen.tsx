@@ -31,13 +31,13 @@ const HomeScreen = (): JSX.Element => {
                 <RedirectionCard url={"/coniugazioni"} name="Coniugazione dei verbi italiani" />
             </section>
 
-            <div className='h-52 bg-secondary-red text-white flex justify-center'>
+            {/* <div className='h-52 bg-secondary-red text-white flex justify-center'>
                 <div className="flex items-center h-full w-full max-w-custom mx-12">
                     <div className="max-w-md text-xl">
                         <p>This is just a personal project to improve my italian. Join me on this journey.</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

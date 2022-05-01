@@ -12,7 +12,7 @@ const RoutesComponent = (): JSX.Element => {
                 <Route path="/" element={<HomeScreen />} />
                 {/* <Route path="/articoli" element={<InCostruzione />} /> */}
                 <Route path="/coniugazioni" element={<ConiugazioniScreen />} />
-                <Route path="/segreto" element={<ParolacciaScreen />} />
+                {/* <Route path="/segreto" element={<ParolacciaScreen />} /> */}
                 <Route path="*" element={<NotFoundScreen />} />
             </Routes>
             <Footer />
